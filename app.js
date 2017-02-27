@@ -1,12 +1,4 @@
 var dataObject={};
-dataObject.location={};
-dataObject.cloudy='<div class="icon cloudy"><div class="cloud"></div><div class="cloud"></div></div>';
-dataObject.flurries='<div class="icon flurries"><div class="cloud"></div><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>';
-dataObject.rainy='<div class="icon rainy"><div class="cloud"></div><div class="rain"></div></div>';
-dataObject.sunShower='<div class="icon sun-shower"><div class="cloud"></div><div class="sun"><div class="rays"></div></div><div class="rain"></div></div>';
-dataObject.sunny='<div class="icon sunny"><div class="sun"><div class="rays"></div></div></div>';
-dataObject.thunderStorm='<div class="icon thunder-storm"><div class="cloud"></div><div class="lightning"><div class="bolt"></div><div class="bolt"></div></div></div>';
-
 var requestX = new XMLHttpRequest();
 
 
@@ -17,7 +9,7 @@ var requestX = new XMLHttpRequest();
   }
 
   function displayLocation(position){
-    console.log("OK");
+   
     dataObject.location.longitude=position.coords.longitude;
     dataObject.location.latitude=position.coords.latitude;
 
@@ -43,11 +35,11 @@ var requestX = new XMLHttpRequest();
 
 
 function update(){
-  var cod = dataObject.weather.weather[0].description;
-  document.getElementById("description").innerHTML=dataObject.weather.weather[0].description;
-  document.getElementById("place").innerHTML=dataObject.weather.name;
+  let{weather:[description:{description:cod}], name, main:{temp}}=dataObject.weather;
+  document.getElementById("description").innerHTML=cod;
+  document.getElementById("place").innerHTML=name;
 
-  var result =Math.floor(dataObject.weather.main.temp-273);
+  var result =Math.floor(temp-273);
 
 
   
@@ -57,26 +49,29 @@ function update(){
       document.getElementById("view").innerHTML='div class="icon sunny"><div class="sun"><div class="rays"></div></div></div>';
     break;
     case "few clouds":
-        view.innerHTMl=dataObject.cloudy      ;
+        view.innerHTMl='<div class="icon cloudy"><div class="cloud"></div><div class="cloud"></div></div>';     
     break;
     case "scattered clouds":
-        view.innerHTMl=dataObject.cloudy      ;
+        view.innerHTMl='<div class="icon cloudy"><div class="cloud"></div><div class="cloud"></div></div>';
     break;
     case "broken clouds":
-        view.innerHTMl=dataObject.cloudy      ;
+        view.innerHTMl='<div class="icon cloudy"><div class="cloud"></div><div class="cloud"></div></div>';
     break;
     case "shower rain":
-        view.innerHTMl=dataObject.sunShower      ;
+        view.innerHTMl='<div class="icon sun-shower"><div class="cloud"></div><div class="sun"><div class="rays"></div></div><div class="rain"></div></div>';
     break;
     case "rain":
-        view.innerHTMl=dataObject.rainy      ;
+        view.innerHTMl='<div class="icon rainy"><div class="cloud"></div><div class="rain"></div></div>';
     break;
     case "thunderstorm":
-        view.innerHTMl=dataObject.thunderStorm     ;
+        view.innerHTMl='<div class="icon thunder-storm"><div class="cloud"></div><div class="lightning"><div class="bolt"></div><div class="bolt"></div></div></div>';
     break;
     case "snow":
-        view.innerHTMl=dataObject.flurries       ;
+        view.innerHTMl='<div class="icon flurries"><div class="cloud"></div><div class="snow"><div class="flake"></div><div class="flake"></div></div></div>';
     break;
+    case 'haze':
+        view.innerHTMl='<div class="icon cloudy"><div class="cloud"></div><div class="cloud"></div></div>';
+    break;  
   }
 
 }
