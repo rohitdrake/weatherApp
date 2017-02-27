@@ -35,7 +35,8 @@ var requestX = new XMLHttpRequest();
 
 
 function update(){
-  let{weather:[description:{description:cod}], name, main:{temp}}=dataObject.weather;
+  let{weather:[Obj], name, main:{temp}}=dataObject.weather;
+  var cod = Obj.description;
   document.getElementById("description").innerHTML=cod;
   document.getElementById("place").innerHTML=name;
 
